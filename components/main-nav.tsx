@@ -6,6 +6,7 @@ import {Icons} from "@/components/icons"
 import {buttonVariants} from "@/components/ui/button";
 import {cn} from "@/lib/utils";
 import Tooltip from "@/components/ui/tooltip";
+import {GameModeBar} from "@/components/gamemode-bar";
 
 export function MainNav() {
 	return (
@@ -30,31 +31,7 @@ export function MainNav() {
 						<span className="sr-only">About</span>
 					</div>
 				</Link>
-				<div className={"border-l-2 border-l-foreground flex gap-2"}>
-					<Tooltip direction={'bottom'} text={"Countries"}>
-						<div
-							className={cn(buttonVariants({
-								size: "icon",
-								variant: "ghost",
-							}), "ml-2")}
-						>
-							<Icons.countries/>
-							<span className="sr-only">Countries</span>
-						</div>
-					</Tooltip>
-
-					<Tooltip direction={'bottom'} text={"Celebrities"}>
-						<div
-							className={buttonVariants({
-								size: "icon",
-								variant: "ghost",
-							})}
-						>
-							<Icons.people/>
-							<span className="sr-only">Countries</span>
-						</div>
-					</Tooltip>
-				</div>
+				<GameModeBar/>
 			</nav>
 		</div>
 	)
