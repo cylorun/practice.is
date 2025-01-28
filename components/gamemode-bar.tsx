@@ -12,12 +12,16 @@ export function GameModeBar (): JSX.Element {
 	const {gameMode, setGameMode} = useGameMode();
 
 	const handleClick = (value: string) => {
+		if (window.location.pathname !== "/") {
+			window.location.href = "/"
+		}
+
 		setGameMode(value);
 	}
 
 	return (
 		<div className={"flex gap-2 border-l-2 border-l-foreground"}>
-			<Tooltip direction={'bottom'} text={"Countries"}>
+			<Tooltip direction={'bottom'} text={"Lönd"}>
 				<div
 					className={cn(buttonVariants({
 						size: "icon",
@@ -26,11 +30,11 @@ export function GameModeBar (): JSX.Element {
 					onClick={(e) => handleClick("country")}
 				>
 					<Icons.countries/>
-					<span className="sr-only">Countries</span>
+					<span className="sr-only">Lönd</span>
 				</div>
 			</Tooltip>
 
-			<Tooltip direction={'bottom'} text={"Celebrities"}>
+			<Tooltip direction={'bottom'} text={"Almennt"}>
 				<div
 					className={buttonVariants({
 						size: "icon",
@@ -40,7 +44,7 @@ export function GameModeBar (): JSX.Element {
 
 				>
 					<Icons.general/>
-					<span className="sr-only">Countries</span>
+					<span className="sr-only">Almennt</span>
 				</div>
 			</Tooltip>
 		</div>

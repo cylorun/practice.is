@@ -99,13 +99,14 @@ const GeneralQuestions = () => {
 	return (
 		<section className="mt-8 flex w-full flex-col items-center justify-center">
 			<p className="mb-4 text-center text-lg ">
-				<span className="font-semibold">Question: </span>
+				<span className=" font-semibold">Spurning: </span>
+				<br/>
 				<span className={"text-accent"}>{randQuestion?.question ? capitalize(randQuestion?.question) : ""}</span>
 			</p>
 			<div className="container mx-auto grid max-w-2xl items-center justify-center gap-6 pb-8 pt-6 md:py-10">
 				<div className="flex flex-col rounded-md p-8 shadow-lg shadow-black">
 					<label htmlFor="capital-inp" className="mb-2 text-sm text-gray-300">
-						Answer
+						Svar
 					</label>
 					<input
 						id="cap-inp"
@@ -113,7 +114,7 @@ const GeneralQuestions = () => {
 						value={userAnswer}
 						onChange={onUserInput}
 						className={"textinp"}
-						placeholder="Answer"
+						placeholder="Sláðu inn svar..."
 						autoFocus={true}
 					/>
 				</div>
@@ -123,15 +124,15 @@ const GeneralQuestions = () => {
 					className="my-2 max-h-12  min-w-28 rounded-md p-2 shadow-md shadow-black"
 					onClick={onSkip}
 				>
-					Skip
+					Næsta
 				</Button>
 
-				<p className="text-md text-gray-300">
-					Average Time:{" "}
-					<span className="font-semibold text-blue-400">
-						{averageTime ? averageTime.toFixed(2) : "--:--"}
-					</span>{" "}
-					seconds in {roundsPlayed} {roundsPlayed === 1 ? "round" : "rounds"}
+				<p className="text-md text-foreground">
+					Meðaltími:{" "}
+					<span className="font-semibold text-accent">
+					{averageTime ? averageTime.toFixed(2) : "--:--"}
+				  </span>
+					{" "} sekúndur yfir {roundsPlayed} {roundsPlayed === 1 ? 'leik' : 'leiki'}
 				</p>
 			</div>
 		</section>

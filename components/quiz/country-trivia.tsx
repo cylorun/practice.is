@@ -3,14 +3,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { Skeleton } from "@mui/material";
 import axios from "axios";
-
-
-
 import { Button } from "@/components/ui/button";
-
-
-
-
 
 function normalizeSpecialCharacters(input: string): string {
 	if (!input) return "";
@@ -206,13 +199,13 @@ const CountryTrivia = () => {
 	return (
 		<section className="container mx-auto grid max-w-2xl items-center justify-center gap-6 pb-8 pt-6 md:py-10">
 			<p className="mb-4 text-lg">
-				<span className="font-semibold">Country: </span>
+				<span className="font-semibold">Land: </span>
 				<span className={'text-accent'}>{randomCountry}</span>
 			</p>
 
 			<div className="flex flex-col rounded-md p-8 shadow-lg shadow-black">
 				<label htmlFor="capital-inp" className="mb-2 text-sm text-gray-300">
-					Capital
+					Höfuðborg
 				</label>
 				<input
 					id="cap-inp"
@@ -220,12 +213,12 @@ const CountryTrivia = () => {
 					value={capInput}
 					onChange={handleCapChange}
 					className={'textinp'}
-					placeholder="Enter capital..."
+					placeholder="Sláðu inn höfuðborg..."
 					autoFocus={true}
 				/>
 
 				<label htmlFor="curr-inp" className="mb-2 text-sm text-gray-300">
-					Currency
+					Gjaldmiðill
 				</label>
 				<input
 					id="curr-inp"
@@ -233,7 +226,7 @@ const CountryTrivia = () => {
 					value={currInput}
 					onChange={handleCurrChange}
 					className={'textinp'}
-					placeholder="Enter currency."
+					placeholder="Sláðu inn gjaldmiðil.."
 				/>
 			</div>
 
@@ -242,15 +235,15 @@ const CountryTrivia = () => {
 				className="my-2 max-h-12  min-w-28 rounded-md p-2 shadow-md shadow-black"
 				onClick={onSkip}
 			>
-				Skip
+				Næsta
 			</Button>
 
-			<p className="text-md text-gray-300">
-				Average Time:{" "}
+			<p className="text-md text-foreground">
+				Meðaltími:{" "}
 				<span className="font-semibold text-accent">
 					{averageTime ? averageTime.toFixed(2) : "--:--"}
 				  </span>
-				{" "}seconds in {roundsPlayed} {roundsPlayed === 1 ? 'round' : 'rounds'}
+				{" "} sekúndur yfir {roundsPlayed} {roundsPlayed === 1 ? 'leik' : 'leiki'}
 			</p>
 		</section>
 	);
