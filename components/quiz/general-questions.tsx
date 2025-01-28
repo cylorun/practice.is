@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-import { Button } from "@/components/ui/button"
-import {capitalize} from "@/lib/utils";
+
+
+import { capitalize } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+
+
+
+
 
 type Question = {
 	question: string
-	answer: string
+	ans: string
 }
 
 
@@ -32,8 +38,7 @@ const GeneralQuestions = () => {
 			}
 
 			setRandQuestion(res.data[Math.floor(Math.random() * res.data.length)])
-
-			setStartTime(Date.now())
+			setStartTime(Date.now());
 		} catch (e) {
 			console.error(e)
 		} finally {
@@ -41,24 +46,50 @@ const GeneralQuestions = () => {
 		}
 	}
 
+	const isValidAnswer = (answer: string): boolean => {
+		return answer.toLowerCase() === randQuestion?.ans?.toLowerCase();
+	}
+
 	useEffect(() => {
 		fetchQuestions()
 	}, []);
 
 	useEffect(() => {
+		console.log(randQuestion);
+	}, [randQuestion]);
 
+	useEffect(() => {
+		if (isValidAnswer(userAnswer)) {
+			setRoundsPlayed((prev) => prev + 1);
+
+			const endTime = Date.now();
+			const timeTaken = (endTime - startTime!) / 1000;
+
+			setGuessTimes((prev) => {
+				const updatedGuessTimes = [...prev, timeTaken];
+				const newAverageTime = updatedGuessTimes.reduce((acc, curr) => acc + curr, 0) / updatedGuessTimes.length;
+				setAverageTime(newAverageTime);
+				return updatedGuessTimes;
+			});
+
+			nextQuestion();
+		}
 	}, [userAnswer]);
 
 
+
+	const nextQuestion = () => {
+		setRandQuestion(questions[Math.floor(Math.random() * questions.length)]);
+		setUserAnswer("");
+		setStartTime(Date.now());
+	}
 
 	const onUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setUserAnswer(e.currentTarget.value);
 	}
 
 	const onSkip = () => {
-		setRandQuestion(questions[Math.floor(Math.random() * questions.length)])
-
-		setStartTime(Date.now())
+		nextQuestion();
 	}
 
 	return (

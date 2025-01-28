@@ -1,9 +1,16 @@
-'use client'
+"use client";
 
-import {useEffect, useState, ChangeEvent} from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { Skeleton } from "@mui/material";
 import axios from "axios";
-import {Button} from "@/components/ui/button";
-import {Skeleton} from "@mui/material";
+
+
+
+import { Button } from "@/components/ui/button";
+
+
+
+
 
 function normalizeSpecialCharacters(input: string): string {
 	if (!input) return "";
@@ -103,9 +110,8 @@ const CountryTrivia = () => {
 			const timeTaken = (endTime - startTime!) / 1000;
 			setGuessTimes((prev) => [...prev, timeTaken]);
 			setAverageTime((prevState: number | null) => {
-				const prevTimes = prevState ?? 0;
-				const newAverage = (prevTimes + timeTaken) / (guessTimes.length + 1);
-				return newAverage;
+				const prevTimes = prevState ?? 0
+				return (prevTimes + timeTaken) / (guessTimes.length + 1);
 			});
 
 			nextCountry();
