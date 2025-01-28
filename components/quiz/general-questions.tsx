@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 
-import { capitalize } from "@/lib/utils";
+import {capitalize, normalizeString} from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 
@@ -47,7 +47,10 @@ const GeneralQuestions = () => {
 	}
 
 	const isValidAnswer = (answer: string): boolean => {
-		return answer.toLowerCase() === randQuestion?.ans?.toLowerCase();
+		if (!answer) {
+			return false;
+		}
+		return normalizeString(answer) === normalizeString((randQuestion?.ans ?? ""));
 	}
 
 	useEffect(() => {
@@ -56,6 +59,7 @@ const GeneralQuestions = () => {
 
 	useEffect(() => {
 		console.log(randQuestion);
+		console.log(averageTime);
 	}, [randQuestion]);
 
 	useEffect(() => {
