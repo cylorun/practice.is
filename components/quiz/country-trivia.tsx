@@ -108,11 +108,14 @@ const CountryTrivia = () => {
 		if (capitalCorrect(country, capInput) && currencyCorrect(country, currInput)) {
 			const endTime = Date.now();
 			const timeTaken = (endTime - startTime!) / 1000;
-			setGuessTimes((prev) => [...prev, timeTaken]);
-			setAverageTime((prevState: number | null) => {
-				const prevTimes = prevState ?? 0
-				return (prevTimes + timeTaken) / (guessTimes.length + 1);
+
+			setGuessTimes((prev) => {
+				const updatedGuessTimes = [...prev, timeTaken];
+				const newAverageTime = updatedGuessTimes.reduce((acc, curr) => acc + curr, 0) / updatedGuessTimes.length;
+				setAverageTime(newAverageTime);
+				return updatedGuessTimes;
 			});
+
 
 			nextCountry();
 		}
