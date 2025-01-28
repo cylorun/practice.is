@@ -3,6 +3,7 @@
 import {useEffect, useState, ChangeEvent} from "react";
 import axios from "axios";
 import {Button} from "@/components/ui/button";
+import {Skeleton} from "@mui/material";
 
 function normalizeSpecialCharacters(input: string): string {
 	if (!input) return "";
@@ -176,17 +177,33 @@ const Page = () => {
 	}
 
 	if (isLoading) {
-		return <div>Loading...</div>;
+		return (
+			<section className="container mx-auto max-w-xl grid items-center justify-center gap-4 pb-8 pt-6 md:py-10">
+				<Skeleton variant="rounded" width={200} height={24} />
+
+				<div className="flex flex-col rounded-md shadow-lg shadow-black p-8">
+					<Skeleton variant="rounded" width={80} height={20} className="mb-4" />
+					<Skeleton variant="rounded" width={220} height={40} />
+					<span className={'mb-4'}></span>
+					<Skeleton variant="rounded" width={80} height={20} className="mb-4" />
+					<Skeleton variant="rounded" width={220} height={40} />
+				</div>
+
+				<Skeleton variant="rounded" width={300} height={40} className="my-4" />
+
+				<Skeleton variant="rounded" width={260} height={24} className={'ml-4'} />
+			</section>
+		);
 	}
 
 	return (
-		<section className="container mx-auto  max-w-2xl grid items-center justify-center gap-6 pb-8 pt-6 md:py-10">
+		<section className="container mx-auto max-w-2xl grid items-center justify-center gap-6 pb-8 pt-6 md:py-10">
 			<p className="text-lg mb-4">
 				<span className="font-semibold">Country: </span>
 				<span className={'text-accent'}>{randomCountry}</span>
 			</p>
 
-			<div className="flex flex-col p-4 rounded-md shadow-lg shadow-black p-8">
+			<div className="flex flex-col rounded-md shadow-lg shadow-black p-8">
 				<label htmlFor="capital-inp" className="text-sm mb-2 text-gray-300">
 					Capital
 				</label>
@@ -224,13 +241,13 @@ const Page = () => {
 			<p className="text-md text-gray-300">
 				Average Time:{" "}
 				<span className="font-semibold text-blue-400">
-				  {averageTime ? averageTime.toFixed(2) : "-"}
-				</span>
+        {averageTime ? averageTime.toFixed(2) : "-"}
+      </span>
 				{" "}seconds in {roundsPlayed} {roundsPlayed === 1 ? 'round' : 'rounds'}
 			</p>
 		</section>
-
 	);
+
 };
 
 export default Page;

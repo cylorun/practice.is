@@ -4,16 +4,7 @@ export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
 	name: "Practice",
-	description:
-		"Æfingar fyrir quiz",
-	mainNav: [
-		{
-			icon: Icons.info,
-			href: "/about",
-			title: "About",
-			iconSize: 22
-		},
-	],
+	description: "Æfingar fyrir quiz",
 	links: {
 		twitter: "https://twitter.com/shadcn",
 		github: "https://github.com/shadcn/ui",
