@@ -238,9 +238,9 @@ const CountryTrivia = () => {
 
 			<p className="text-md text-gray-300">
 				Average Time:{" "}
-				<span className="font-semibold text-blue-400">
-        {averageTime ? averageTime.toFixed(2) : "-"}
-      </span>
+				<span className="font-semibold text-accent">
+					{averageTime ? averageTime.toFixed(2) : "--:--"}
+				  </span>
 				{" "}seconds in {roundsPlayed} {roundsPlayed === 1 ? 'round' : 'rounds'}
 			</p>
 		</section>

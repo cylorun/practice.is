@@ -36,10 +36,10 @@ export function GameModeBar (): JSX.Element {
 						size: "icon",
 						variant: "ghost",
 					})}
-					onClick={(e) => handleClick("people")}
+					onClick={(e) => handleClick("general")}
 
 				>
-					<Icons.people/>
+					<Icons.general/>
 					<span className="sr-only">Countries</span>
 				</div>
 			</Tooltip>
