@@ -3,79 +3,80 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 220 15% 97%; /* Light gray background */
-    --foreground: 222.2 47.4% 11.2%; /* Dark gray for text */
+	:root {
+		--background: 220 15% 97%; /* Light gray background */
+		--foreground: 222.2 47.4% 11.2%; /* Dark gray for text */
 
-    --muted: 220 10% 90%; /* Softer light gray */
-    --muted-foreground: 222.2 20% 40%; /* Medium gray for muted text */
+		--muted: 220 10% 90%; /* Softer light gray */
+		--muted-foreground: 222.2 20% 40%; /* Medium gray for muted text */
 
-    --popover: 220 15% 97%;
-    --popover-foreground: 222.2 47.4% 11.2%;
+		--popover: 220 15% 97%;
+		--popover-foreground: 222.2 47.4% 11.2%;
 
-    --border: 220 15% 90%; /* Light gray border */
-    --input: 220 15% 90%; /* Light gray input background */
+		--border: 220 15% 90%; /* Light gray border */
+		--input: 220 15% 90%; /* Light gray input background */
 
-    --card: 220 15% 97%; /* Match background */
-    --card-foreground: 222.2 47.4% 11.2%; /* Dark gray for card text */
+		--card: 220 15% 97%; /* Match background */
+		--card-foreground: 222.2 47.4% 11.2%; /* Dark gray for card text */
 
-    --primary: 145 30% 55%; /* Pastel green */
-    --primary-foreground: 220 15% 97%; /* Light for contrast */
+		--primary: 145 30% 55%; /* Pastel green */
+		--primary-foreground: 220 15% 97%; /* Light for contrast */
 
-    --secondary: 145 40% 70%; /* Softer pastel green */
-    --secondary-foreground: 222.2 47.4% 11.2%; /* Dark gray text on green */
+		--secondary: 145 40% 70%; /* Softer pastel green */
+		--secondary-foreground: 222.2 47.4% 11.2%; /* Dark gray text on green */
 
-    --accent: 145 40% 70%; /* Pastel green */
-    --accent-foreground: 222.2 47.4% 11.2%; /* Dark gray */
+		--accent: 145 40% 70%; /* Pastel green */
+		--accent-foreground: 222.2 47.4% 11.2%; /* Dark gray */
 
-    --destructive: 0 70% 60%; /* Softer red */
-    --destructive-foreground: 220 15% 97%; /* Light text for contrast */
+		--destructive: 0 70% 60%; /* Softer red */
+		--destructive-foreground: 220 15% 97%; /* Light text for contrast */
 
-    --ring: 145 40% 60%; /* Pastel green for focus rings */
+		--ring: 145 40% 60%; /* Pastel green for focus rings */
 
-    --radius: 0.5rem;
-  }
+		--radius: 0.5rem;
+	}
 
-  .dark {
-    --background: 220 10% 10%; /* Dark gray background */
-    --foreground: 145 30% 85%; /* Light pastel green for text */
+	.dark {
+		--background: 220 10% 10%; /* Dark gray background */
+		--foreground: 145 30% 85%; /* Light pastel green for text */
 
-    --muted: 220 10% 15%; /* Slightly lighter dark gray */
-    --muted-foreground: 145 20% 75%; /* Muted pastel green for secondary text */
+		--muted: 220 10% 15%; /* Slightly lighter dark gray */
+		--muted-foreground: 145 20% 75%; /* Muted pastel green for secondary text */
 
-    --accent: 145 25% 45%; /* Darker pastel green */
-    --accent-foreground: 220 10% 97%; /* Light for contrast */
+		--accent: 145 25% 45%; /* Darker pastel green */
+		--accent-foreground: 220 10% 97%; /* Light for contrast */
 
-    --popover: 220 10% 10%;
-    --popover-foreground: 145 30% 85%;
+		--popover: 220 10% 10%;
+		--popover-foreground: 145 30% 85%;
 
-    --border: 220 10% 20%; /* Darker gray border */
-    --input: 220 10% 20%; /* Darker gray input */
+		--border: 220 10% 20%; /* Darker gray border */
+		--input: 220 10% 20%; /* Darker gray input */
 
-    --card: 220 10% 10%; /* Match background */
-    --card-foreground: 145 30% 85%; /* Light pastel green for card text */
+		--card: 220 10% 10%; /* Match background */
+		--card-foreground: 145 30% 85%; /* Light pastel green for card text */
 
-    --primary: 145 40% 70%; /* Bright pastel green */
-    --primary-foreground: 220 10% 10%; /* Dark for contrast */
+		--primary: 145 40% 70%; /* Bright pastel green */
+		--primary-foreground: 220 10% 10%; /* Dark for contrast */
 
-    --secondary: 145 30% 55%; /* Softer pastel green */
-    --secondary-foreground: 220 10% 10%; /* Dark background text */
+		--secondary: 145 30% 55%; /* Softer pastel green */
+		--secondary-foreground: 220 10% 10%; /* Dark background text */
 
-    --destructive: 0 50% 40%; /* Softer red for destructive actions */
-    --destructive-foreground: 220 10% 97%; /* Light text for contrast */
+		--destructive: 0 50% 40%; /* Softer red for destructive actions */
+		--destructive-foreground: 220 10% 97%; /* Light text for contrast */
 
-    --ring: 145 40% 50%; /* Pastel green for focus rings */
+		--ring: 145 40% 50%; /* Pastel green for focus rings */
 
-    --radius: 0.5rem;
-  }
+		--radius: 0.5rem;
+	}
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
+	* {
+		@apply border-border;
+	}
+
+	body {
+		@apply bg-background text-foreground;
+		font-feature-settings: "rlig" 1, "calt" 1;
+	}
 }
