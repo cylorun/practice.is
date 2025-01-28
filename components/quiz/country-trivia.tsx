@@ -30,8 +30,6 @@ function fixDataString(data: any): string {
 	return normalizeSpecialCharacters(data).replace(/[-.,_']/g, "").toLowerCase();
 }
 
-const INPUT_STYLE = 'w-full max-w-sm p-3 rounded-md bg-accent text-accent-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent mb-4'
-
 const CountryTrivia = () => {
 	const [countries, setCountries] = useState<{ [key: string]: any }>({});
 	const [randomCountry, setRandomCountry] = useState<string>("");
@@ -212,7 +210,7 @@ const CountryTrivia = () => {
 					type="text"
 					value={capInput}
 					onChange={handleCapChange}
-					className={INPUT_STYLE}
+					className={'textinp'}
 					placeholder="Enter capital..."
 					autoFocus={true}
 				/>
@@ -225,7 +223,7 @@ const CountryTrivia = () => {
 					type="text"
 					value={currInput}
 					onChange={handleCurrChange}
-					className={INPUT_STYLE}
+					className={'textinp'}
 					placeholder="Enter currency."
 				/>
 			</div>
