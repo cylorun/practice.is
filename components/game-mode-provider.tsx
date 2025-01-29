@@ -10,7 +10,7 @@ interface GameModeContextValue {
 const GameModeContext = createContext<GameModeContextValue | undefined>(undefined);
 
 export const GameModeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-	const [gameMode, setGameMode] = useState("country");
+	const [gameMode, setGameMode] = useState("general");
 
 	return (
 		<GameModeContext.Provider value={{ gameMode, setGameMode }}>
