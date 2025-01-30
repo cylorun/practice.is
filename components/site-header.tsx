@@ -24,7 +24,7 @@ export function SiteHeader() {
 								})}
 							>
 								<Icons.user/>
-								<span className="sr-only">{"profile"}</span>
+								<span className="sr-only">{"user"}</span>
 							</div>
 						</Link>
 						<ThemeToggle/>
