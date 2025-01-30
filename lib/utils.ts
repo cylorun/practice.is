@@ -82,4 +82,4 @@ export function stringPercentageMatch (a: string, b: string, percentage: number)
 	const percentageMatch = (matchingCharacters / aNormalized.length) * 100;
 
 	return percentageMatch >= percentage;
-};
+}

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {capitalize, cn, normalizeString, stringDifference, stringPercentageMatch} from "@/lib/utils";
 import {Button, buttonVariants} from "@/components/ui/button";
+import {supabase, uploadScore} from "@/lib/supabase";
 
 type Question = {
 	question: string;
@@ -17,7 +18,7 @@ type GameResult = {
 	skipped: boolean;
 };
 
-const GAME_LENGTH_SECONDS = 90;
+const GAME_LENGTH_SECONDS = 15;
 
 const GeneralQuestions = () => {
 	const [questions, setQuestions] = useState<Question[]>([]);
@@ -140,7 +141,7 @@ const GeneralQuestions = () => {
 				setGameTime((prevTime) => {
 					if (prevTime <= 1) {
 						clearInterval(timer);
-						setGameOver(true); // Game Over
+						setGameOver(true);
 						return 0;
 					}
 					return prevTime - 1;
@@ -150,6 +151,27 @@ const GeneralQuestions = () => {
 			return () => clearInterval(timer);
 		}
 	}, [gameTime, gameOver]);
+
+	useEffect(() => {
+
+
+		(async () => {
+			console.log("uploading");
+			if (gameOver) {
+				const {data: userData, error: userError} = await supabase.auth.getUser();
+				if (!userData || userError) return;
+
+				const user_id = userData.user.id;
+				const {data, error} = await uploadScore({
+					user_id,
+					value: gameResults.reduce((p, c) => p + c.score, 0),
+					duration_s: GAME_LENGTH_SECONDS,
+					type: "speedquestions",
+					created_at: new Date()
+				});
+			}
+		})();
+	}, [gameOver]);
 
 	useEffect(() => {
 		if (!randQuestion) return;
