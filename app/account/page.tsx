@@ -5,28 +5,14 @@ import React, { useEffect, useState } from "react"
 import { supabase } from "@/lib/supabase"
 import {redirect} from "next/navigation";
 import {Score} from "@/types/user";
+import {useAuth} from "@/components/auth-provider";
+import LoadingScreen from "@/components/loading-screen";
 
 export default function Page() {
-	const [userData, setUserData] = useState<any>(null);
 	const [scores, setScores] = useState<Score[]>([]);
 	const [loading, setLoading] = useState<boolean>(true)
 	const [error, setError] = useState<string | null>(null)
-
-	const fetchUserData = async () => {
-		setLoading(true);
-		try {
-			const { data, error } = await supabase.auth.getUser();
-			if (error || !data) {
-				throw new Error(error?.message ?? "Failed to fetch user data");
-			}
-
-			setUserData(data.user)
-		} catch (error: any) {
-			redirect('/login');
-		} finally {
-			setLoading(false)
-		}
-	}
+	const {user} = useAuth();
 
 	const fetchUserScores = async () => {
 		setLoading(true);
@@ -49,12 +35,15 @@ export default function Page() {
 	}
 
 	useEffect(() => {
-		fetchUserData();
+		if (!user) {
+			redirect('/login');
+			return;
+		}
 		fetchUserScores();
 	}, [])
 
 	if (loading) {
-		return <div>Loading...</div>
+		return <LoadingScreen/>
 	}
 
 	if (error) {
@@ -63,15 +52,14 @@ export default function Page() {
 
 	return (
 		<div className="mx-auto max-w-2xl rounded-2xl bg-background p-6 shadow-lg shadow-black">
-
-			{userData ? (
+			{user ? (
 				<div className="rounded-xl  p-6">
 					<div className="mb-6 space-y-3">
 						<h1 className="text-2xl font-semibold text-accent">
-							 {userData.user_metadata.name}
+							 {user.user_metadata.name}
 						</h1>
 						<p className="text-lg font-semibold text-muted-foreground">
-							<span className="text-foreground">Email:</span> {userData.email}
+							<span className="text-foreground">Email:</span> {user.email}
 						</p>
 					</div>
 

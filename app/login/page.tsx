@@ -6,33 +6,14 @@ import { Loader2 } from "lucide-react"
 
 import { supabase } from "@/lib/supabase"
 import Login from "@/components/login"
+import {useAuth} from "@/components/auth-provider";
 
 export default function Page() {
-	const [loading, setLoading] = useState(true);
-	const [loggedIn, setLoggedIn] = useState<boolean>(false);
+	const {user} = useAuth();
 
-	useEffect(() => {
-		const checkUser = async () => {
-			const { data, error } = await supabase.auth.getUser();
-			if (data && !error) {
-				setLoggedIn(true);
-				redirect("/account");
-			} else {
-				setLoggedIn(false);
-			}
-			setLoading(false);
-		}
-
-		checkUser();
-	}, []);
-
-	if (loading) {
-		return (
-			<div className="flex h-screen items-center justify-center">
-				<Loader2 className="mr-2 size-16 animate-spin" />
-			</div>
-		)
+	if (user) {
+		redirect('/account');
 	}
 
-	return <div>{!loggedIn ? <Login /> : null}</div>
+	return <div>{!user ? <Login /> : null}</div>
 }
