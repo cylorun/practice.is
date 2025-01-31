@@ -4,6 +4,7 @@ import axios from "axios";
 import {capitalize, cn, normalizeString, stringDifference, stringPercentageMatch} from "@/lib/utils";
 import {Button, buttonVariants} from "@/components/ui/button";
 import {supabase, uploadScore} from "@/lib/supabase";
+import {Toast} from "@/components/ui/toast";
 
 type Question = {
 	question: string;
@@ -23,7 +24,6 @@ const GAME_LENGTH_SECONDS = 15;
 const GeneralQuestions = () => {
 	const [questions, setQuestions] = useState<Question[]>([]);
 	const [randQuestion, setRandQuestion] = useState<Question | null>(null);
-	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [userAnswer, setUserAnswer] = useState<string>("");
 	const [gameTime, setGameTime] = useState<number>(GAME_LENGTH_SECONDS);
 	const [roundsPlayed, setRoundsPlayed] = useState<number>(0);
@@ -31,6 +31,9 @@ const GeneralQuestions = () => {
 	const [gameResults, setGameResults] = useState<GameResult[]>([]);
 	const [startTime, setStartTime] = useState<number>(Date.now());
 
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [openErrorToast, setOpenErrorToast] = useState(false);
+	const [error, setError] = useState<string>("");
 
 	const fetchQuestions = async () => {
 		setIsLoading(true);
@@ -42,8 +45,9 @@ const GeneralQuestions = () => {
 				throw new Error("Failed to fetch questions");
 			}
 			nextQuestion(res.data);
-		} catch (e) {
-			console.error(e);
+		} catch (e: any) {
+			setError(e.message);
+			setOpenErrorToast(true);
 		} finally {
 			setIsLoading(false);
 		}
@@ -153,13 +157,14 @@ const GeneralQuestions = () => {
 	}, [gameTime, gameOver]);
 
 	useEffect(() => {
-
-
 		(async () => {
-			console.log("uploading");
 			if (gameOver) {
 				const {data: userData, error: userError} = await supabase.auth.getUser();
-				if (!userData || userError) return;
+				if (!userData || userError) {
+					setError((userError ?? "unknown error") as string);
+					setOpenErrorToast(true);
+					return;
+				}
 
 				const user_id = userData.user.id;
 				const {data, error} = await uploadScore({
@@ -169,6 +174,11 @@ const GeneralQuestions = () => {
 					type: "speedquestions",
 					created_at: new Date()
 				});
+
+				if (error) {
+					setError(error as string);
+					setOpenErrorToast(true);
+				}
 			}
 		})();
 	}, [gameOver]);
@@ -181,6 +191,8 @@ const GeneralQuestions = () => {
 
 	return (
 		<section className="mt-8 flex w-full flex-col items-center justify-center">
+			<Toast error title={"An error occured"} description={error ? error : "Unknown error"} open={openErrorToast} setOpen={setOpenErrorToast}/>
+
 			{!gameOver ? (
 				<>
 					<p className="mb-4 text-center text-lg ">
