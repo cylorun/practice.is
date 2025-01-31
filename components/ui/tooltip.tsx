@@ -4,13 +4,12 @@ import React, { ReactNode, useState } from 'react';
 interface TooltipProps {
 	children: ReactNode;
 	text: string;
-	direction?: 'top' | 'bottom' | 'left' | 'right'; // Optional direction prop
+	direction?: 'top' | 'bottom' | 'left' | 'right';
 }
 
 const Tooltip: React.FC<TooltipProps> = ({ children, text, direction = 'top' }) => {
 	const [isHovered, setIsHovered] = useState(false);
 
-	// Determine tooltip position based on the direction prop
 	const positionClasses = {
 		top: 'bottom-full mb-2 transform -translate-x-1/2',
 		bottom: 'top-full mt-2 transform -translate-x-1/2',

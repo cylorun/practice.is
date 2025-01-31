@@ -232,11 +232,10 @@ const GeneralQuestions = () => {
 						</Button>
 
 						<p className="text-md text-foreground">
-							Tími:{" "}
+							Tími eftir:{" "}
 							<span className="font-semibold text-accent">
 								{gameTime}s
 							</span>
-							{" "} yfir {roundsPlayed} {roundsPlayed === 1 ? "leik" : "leiki"}
 						</p>
 					</div>
 				</>
