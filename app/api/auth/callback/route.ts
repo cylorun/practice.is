@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
 export async function GET(request: Request) {
+	console.log(request.url)
 	const { searchParams, origin } = new URL(request.url)
 	const code = searchParams.get('code')
 

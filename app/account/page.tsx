@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react"
 
 import { supabase } from "@/lib/supabase"
+import {redirect} from "next/navigation";
 
 export default function Page() {
 	const [userData, setUserData] = useState<any>(null)
@@ -23,7 +24,7 @@ export default function Page() {
 
 			setUserData(data.user)
 		} catch (error: any) {
-			setError(error.message)
+			redirect('/login');
 		} finally {
 			setLoading(false)
 		}
