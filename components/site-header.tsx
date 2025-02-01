@@ -9,6 +9,7 @@ import {ThemeToggle} from "@/components/theme-toggle"
 import * as React from "react";
 import {useAuth} from "@/components/auth-provider";
 import {redirect} from "next/navigation";
+import Tooltip from "@/components/ui/tooltip";
 
 export function SiteHeader() {
 	const {user, logout} = useAuth();
@@ -28,27 +29,31 @@ export function SiteHeader() {
 							href={"/account"}
 							className={"flex items-center text-sm font-medium"}
 						>
-							<div
-								className={buttonVariants({
-									size: "icon",
-									variant: "ghost",
-								})}
-							>
-								<Icons.user/>
-								<span className="sr-only">{"user"}</span>
-							</div>
+							<Tooltip  text={"Þú"} direction={"bottom"}>
+								<div
+									className={buttonVariants({
+										size: "icon",
+										variant: "ghost",
+									})}
+								>
+									<Icons.user/>
+									<span className="sr-only">{"user"}</span>
+								</div>
+							</Tooltip>
 						</Link>
 						{user && (
-							<div
-								className={buttonVariants({
-									size: "icon",
-									variant: "ghost",
-								})}
-								onClick={onLogoutClick}
-							>
-								<Icons.logout/>
-								<span className="sr-only">{"user"}</span>
-							</div>
+							<Tooltip text={"Útskrá"} direction={"bottom"}>
+								<div
+									className={buttonVariants({
+										size: "icon",
+										variant: "ghost",
+									})}
+									onClick={onLogoutClick}
+								>
+									<Icons.logout/>
+									<span className="sr-only">{"user"}</span>
+								</div>
+							</Tooltip>
 						)}
 						<ThemeToggle/>
 					</nav>
