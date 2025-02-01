@@ -4,6 +4,7 @@ import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2 } from 'lucide-react';
+import Link from "next/link";
 
 export default function Login() {
 	const [loading, setLoading] = useState(false);
@@ -43,11 +44,11 @@ export default function Login() {
 				<CardContent>
 					<form onSubmit={passwordLogin} className="space-y-4">
 						<div>
-							<label htmlFor="email" className="block text-sm text-muted-foreground">Email</label>
+							<label htmlFor="email" className="block text-sm text-muted-foreground pb-1">Email</label>
 							<input className={'textinp'} id="email" name="email" type="email" placeholder="Enter your email" required />
 						</div>
 						<div>
-							<label htmlFor="password" className="block text-sm text-muted-foreground">Password</label>
+							<label htmlFor="password" className="block text-sm text-muted-foreground pb-1">Password</label>
 							<input className={'textinp'} id="password" name="password" type="password" placeholder="Enter your password" required />
 						</div>
 						{error && <p className="text-sm text-destructive">{error}</p>}
@@ -55,7 +56,11 @@ export default function Login() {
 							{loading ? <Loader2 className="mr-2 size-4 animate-spin" /> : "Login"}
 						</Button>
 					</form>
-					<div className="mt-6 text-center text-sm">or</div>
+
+					<div className="mt-6 text-center text-sm border-b-2 pb-2">
+						<Link href={"/signup"}>Create an account</Link>
+					</div>
+
 					<Button onClick={googleLogin} variant="secondary" className="mt-4 w-full" disabled={loading}>
 						{loading ? <Loader2 className="mr-2 size-4 animate-spin" /> : "Login with Google"}
 					</Button>
