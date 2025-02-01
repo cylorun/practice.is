@@ -20,6 +20,7 @@ export default function Page() {
 			const { data, error } = await supabase
 				.from("scores")
 				.select("*")
+				.order('created_at', {ascending: false})
 				.limit(15);
 
 			if (error || !data) {
