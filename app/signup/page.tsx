@@ -22,7 +22,7 @@ export default function Signup() {
 		const reppassword = formData.get('reppassword') as string;
 
 		if (password !== reppassword) {
-			setError("Passwords do not match.");
+			setError("Lykilorð passa ekki saman.");
 			setLoading(false);
 			return;
 		}
@@ -32,7 +32,7 @@ export default function Signup() {
 		if (error) {
 			setError(error.message);
 		} else {
-			setSuccess("Registration successful! Check your email to verify your account.");
+			setSuccess("Skráning tókst! Athugaðu tölvupóstinn þinn til að staðfesta reikninginn.");
 		}
 	};
 
@@ -40,26 +40,26 @@ export default function Signup() {
 		<div className="flex min-h-screen items-center justify-center p-4">
 			<Card className="w-full max-w-sm p-6 shadow-xl rounded-lg">
 				<CardHeader>
-					<CardTitle className="text-center text-2xl font-bold">Sign Up</CardTitle>
+					<CardTitle className="text-center text-2xl font-bold">Nýskráning</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<form onSubmit={onRegister} className="space-y-4">
 						<div>
-							<label htmlFor="email" className="block text-sm font-medium pb-1">Email</label>
-							<input className="p-2 textinp" id="email" name="email" type="email" placeholder="Enter your email" required />
+							<label htmlFor="email" className="block text-sm font-medium pb-1">Netfang</label>
+							<input className="p-2 textinp" id="email" name="email" type="email" placeholder="Netfang..." required />
 						</div>
 						<div>
-							<label htmlFor="password" className="block text-sm font-medium pb-1">Password</label>
-							<input className="p-2 textinp" id="password" name="password" type="password" placeholder="Enter your password" required />
+							<label htmlFor="password" className="block text-sm font-medium pb-1">Lykilorð</label>
+							<input className="p-2 textinp" id="password" name="password" type="password" placeholder="Lykilorð..." required />
 						</div>
 						<div>
-							<label htmlFor="reppassword" className="block text-sm font-medium pb-1">Repeat Password</label>
-							<input className="p-2 textinp" id="reppassword" name="reppassword" type="password" placeholder="Repeat password" required />
+							<label htmlFor="reppassword" className="block text-sm font-medium pb-1">Endurtekið lykilorð</label>
+							<input className="p-2 textinp" id="reppassword" name="reppassword" type="password" placeholder="Endurtekið lykilorð..." required />
 						</div>
 						{error && <p className="text-sm text-red-600">{error}</p>}
 						{success && <p className="text-sm text-green-600">{success}</p>}
 						<Button type="submit" className="w-full flex justify-center items-center" disabled={loading}>
-							{loading ? <Loader2 className="mr-2 size-4 animate-spin" /> : "Sign Up"}
+							{loading ? <Loader2 className="mr-2 size-4 animate-spin" /> : "Stofna aðgang"}
 						</Button>
 					</form>
 				</CardContent>

@@ -39,30 +39,30 @@ export default function Login() {
 		<div className="flex min-h-screen items-center justify-center p-4">
 			<Card className="w-full max-w-sm p-6 shadow-lg shadow-black">
 				<CardHeader>
-					<CardTitle className="text-center text-2xl font-semibold">Login</CardTitle>
+					<CardTitle className="text-center text-2xl font-semibold">Innskráning</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<form onSubmit={passwordLogin} className="space-y-4">
 						<div>
-							<label htmlFor="email" className="block text-sm text-muted-foreground pb-1">Email</label>
-							<input className={'textinp'} id="email" name="email" type="email" placeholder="Enter your email" required />
+							<label htmlFor="email" className="block text-sm text-muted-foreground pb-1">Netfang</label>
+							<input className={'textinp'} id="email" name="email" type="email" placeholder="Netfang.." required />
 						</div>
 						<div>
-							<label htmlFor="password" className="block text-sm text-muted-foreground pb-1">Password</label>
-							<input className={'textinp'} id="password" name="password" type="password" placeholder="Enter your password" required />
+							<label htmlFor="password" className="block text-sm text-muted-foreground pb-1">Lykilorð</label>
+							<input className={'textinp'} id="password" name="password" type="password" placeholder="Lykilorð..." required />
 						</div>
 						{error && <p className="text-sm text-destructive">{error}</p>}
 						<Button type="submit" className="w-full" disabled={loading}>
-							{loading ? <Loader2 className="mr-2 size-4 animate-spin" /> : "Login"}
+							{loading ? <Loader2 className="mr-2 size-4 animate-spin" /> : "Innskrá"}
 						</Button>
 					</form>
 
 					<div className="mt-6 text-center text-sm border-b-2 pb-2">
-						<Link href={"/signup"}>Create an account</Link>
+						<Link href={"/signup"}>Stofnaðu reikning</Link>
 					</div>
 
 					<Button onClick={googleLogin} variant="secondary" className="mt-4 w-full" disabled={loading}>
-						{loading ? <Loader2 className="mr-2 size-4 animate-spin" /> : "Login with Google"}
+						{loading ? <Loader2 className="mr-2 size-4 animate-spin" /> : "Innskráning með Google"}
 					</Button>
 				</CardContent>
 			</Card>
