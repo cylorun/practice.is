@@ -19,7 +19,7 @@ type GameResult = {
 	skipped: boolean;
 };
 
-const GAME_LENGTH_SECONDS = 15;
+const GAME_LENGTH_SECONDS = 90;
 
 const GeneralQuestions = () => {
 	const [questions, setQuestions] = useState<Question[]>([]);
@@ -158,11 +158,9 @@ const GeneralQuestions = () => {
 
 	useEffect(() => {
 		(async () => {
-			if (gameOver) {
+			if (gameOver && gameResults.length > 0) { // if no gameresults the player hasnt done anything, so pointless to upload
 				const {data: userData, error: userError} = await supabase.auth.getUser();
 				if (!userData || userError) {
-					setError((userError ?? "unknown error") as string);
-					setOpenErrorToast(true);
 					return;
 				}
 
