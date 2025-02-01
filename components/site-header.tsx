@@ -29,7 +29,7 @@ export function SiteHeader() {
 							href={"/account"}
 							className={"flex items-center text-sm font-medium"}
 						>
-							<Tooltip  text={"Þú"} direction={"bottom"}>
+							<Tooltip  text={user ? "Þú" : "Innskráning"} direction={"bottom"}>
 								<div
 									className={buttonVariants({
 										size: "icon",
