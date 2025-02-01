@@ -10,6 +10,7 @@ import {
 	Dices,
 	PersonStanding,
 	Mail,
+	LogOut,
 	type Icon as LucideIcon,
 } from "lucide-react"
 
@@ -37,6 +38,7 @@ export const Icons = {
 		</svg>
 	),
 	people: PersonStanding,
+	logout: LogOut,
 	sun: (props: LucideProps) => <SunMedium {...props} />,
 	moon: (props: LucideProps) => <Moon {...props} />,
 	twitter: (props: LucideProps) => <Twitter {...props} />,
