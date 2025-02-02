@@ -5,6 +5,7 @@ import {siteConfig} from "@/config/site"
 import {Icons} from "@/components/icons"
 import {buttonVariants} from "@/components/ui/button";
 import {GameModeBar} from "@/components/gamemode-bar";
+import Tooltip from "@/components/ui/tooltip";
 
 export function MainNav() {
 	return (
@@ -15,20 +16,40 @@ export function MainNav() {
 			</Link>
 			<nav className="flex gap-2 border-l-2 border-l-foreground">
 				{/*About button*/}
-				<Link
-					href={"/about"}
-					className={"ml-2 flex items-center text-sm font-medium"}
-				>
-					<div
-						className={buttonVariants({
-							size: "icon",
-							variant: "ghost",
-						})}
+				<Tooltip text="Info" direction="bottom">
+					<Link
+						href={"/about"}
+						className={"ml-2 flex items-center text-sm font-medium"}
 					>
-						<Icons.info size={22}/>
-						<span className="sr-only">About</span>
-					</div>
-				</Link>
+						<div
+							className={buttonVariants({
+								size: "icon",
+								variant: "ghost",
+							})}
+						>
+							<Icons.info size={22}/>
+							<span className="sr-only">About</span>
+						</div>
+					</Link>
+				</Tooltip>
+				{/*gh repo button*/}
+				<Tooltip text={"Code"} direction="bottom" >
+					<Link
+						target="_blank"
+						href={"https://github.com/cylorun/practice.is"}
+						className={" flex items-center text-sm font-medium"}
+					>
+						<div
+							className={buttonVariants({
+								size: "icon",
+								variant: "ghost",
+							})}
+						>
+							<Icons.code/>
+							<span className="sr-only">Github Repo</span>
+						</div>
+					</Link>
+				</Tooltip>
 				<GameModeBar/>
 			</nav>
 		</div>
