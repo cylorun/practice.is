@@ -100,7 +100,7 @@ export default function Page() {
 						<p className="text-lg font-semibold text-muted-foreground">
 							<span className="text-foreground">Email:</span> {user.email}
 						</p>
-						<p className={''}>Nákvæmni	{(userData.successRate * 100).toFixed(2)}%</p>
+						<p className={''}>Nákvæmni:	{(userData.successRate * 100).toFixed(2)}%</p>
 						<p className={''}>Stig samtals: {userData.totalPoints}</p>
 					</div>
 
