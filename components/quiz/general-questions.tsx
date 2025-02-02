@@ -167,10 +167,12 @@ const GeneralQuestions = () => {
 				const user_id = userData.user.id;
 				const {data, error} = await uploadScore({
 					user_id,
-					value: gameResults.reduce((p, c) => p + c.score, 0),
 					duration_s: GAME_LENGTH_SECONDS,
 					type: "speedquestions",
-					created_at: new Date()
+					created_at: new Date(),
+					correct_questions: gameResults.reduce((p, c) => p + c.score, 0),
+					wrong_questions: gameResults.reduce((p, c) => p + (!c.skipped && c.score === 0 ? 1 : 0), 0),
+					total_questions: gameResults.length,
 				});
 
 				if (error) {
