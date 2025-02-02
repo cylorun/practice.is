@@ -33,7 +33,7 @@ export function MainNav() {
 					</Link>
 				</Tooltip>
 				{/*gh repo button*/}
-				<Tooltip text={"Code"} direction="bottom" >
+				<Tooltip text={"Kóði"} direction="bottom" >
 					<Link
 						target="_blank"
 						href={"https://github.com/cylorun/practice.is"}
