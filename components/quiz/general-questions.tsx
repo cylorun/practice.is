@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {capitalize, cn, normalizeString, stringDifference, stringPercentageMatch} from "@/lib/utils";
+import {capitalize, cn, normalizeString, stringPercentageMatch} from "@/lib/utils";
 import {Button, buttonVariants} from "@/components/ui/button";
 import {supabase, uploadScore} from "@/lib/supabase";
 import {Toast} from "@/components/ui/toast";
@@ -19,7 +19,7 @@ type GameResult = {
 	skipped: boolean;
 };
 
-const GAME_LENGTH_SECONDS = 30;
+const GAME_LENGTH_SECONDS = 90;
 
 const GeneralQuestions = () => {
 	const [questions, setQuestions] = useState<Question[]>([]);
