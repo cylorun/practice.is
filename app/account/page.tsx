@@ -73,7 +73,7 @@ export default function Page() {
 									className="flex items-center justify-between rounded-lg bg-accent p-4 shadow-md"
 								>
 									<span
-										className="text-lg font-semibold text-accent-foreground">{score.value} stig</span>
+										className="text-lg font-semibold text-accent-foreground">{score.correct_questions} stig</span>
 									<span
 										className="text-lg font-semibold text-muted-foreground">{score.duration_s}s</span>
 
