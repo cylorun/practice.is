@@ -41,7 +41,7 @@ export function stringDifference (str1: string, str2: string): number {
 	let diffCount = 0;
 
 	for (let i = 0; i < len; i++) {
-		if (str1[i] !== str2[i]) {
+		if (str1[i] !== str2[i] && (isNaN(parseInt(str1[i])) || isNaN(parseInt(str2[i])))) { // ignore if its a number, cause it gets kinda messed up
 			diffCount++;
 		}
 	}
@@ -51,7 +51,7 @@ export function stringDifference (str1: string, str2: string): number {
 
 
 /**
- * Returns whether string a is a percentage-th of string b
+ * Returns whether string A is a percentage-th of string B
  * @param a
  * @param b
  * @param percentage
@@ -61,7 +61,7 @@ export function stringPercentageMatch (a: string, b: string, percentage: number)
 		throw new Error("Percentage must be between 0 and 100.");
 	}
 
-	const normalize = (str: string) => str.replace(/\s+/g, "").toLowerCase(); // Remove spaces and normalize case
+	const normalize = (str: string) => str.replace(/\s+/g, "").toLowerCase(); // remove spaces & normalize case
 	const aNormalized = normalize(a);
 	const bNormalized = normalize(b);
 

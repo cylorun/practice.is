@@ -19,7 +19,7 @@ type GameResult = {
 	skipped: boolean;
 };
 
-const GAME_LENGTH_SECONDS = 90;
+const GAME_LENGTH_SECONDS = 30;
 
 const GeneralQuestions = () => {
 	const [questions, setQuestions] = useState<Question[]>([]);
@@ -60,11 +60,11 @@ const GeneralQuestions = () => {
 
 		const ans = normalizeString(answer);
 		const correctAns = normalizeString(randQuestion?.ans ?? "");
-		if (stringDifference(ans, correctAns) <= 2) {
-			return true;
-		}
+		// if (stringDifference(ans, correctAns) <= 2) {
+		// 	return true;
+		// }
 
-		return stringPercentageMatch(ans, correctAns, 65);
+		return stringPercentageMatch(ans, correctAns, 70);
 	};
 
 	const checkAnswer = (skipped = false) => {
