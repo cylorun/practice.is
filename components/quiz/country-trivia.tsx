@@ -4,6 +4,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Skeleton } from "@mui/material";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
+import {Toast} from "@/components/ui/toast";
 
 function normalizeSpecialCharacters(input: string): string {
 	if (!input) return "";
@@ -26,18 +27,20 @@ function normalizeSpecialCharacters(input: string): string {
 		.replace(/[\u201C\u201D\u201E\u201F]/g, '"'); // Double quotes
 }
 
-function fixDataString(data: any): string {
+function normalizeCountryString(data: any): string {
 	return normalizeSpecialCharacters(data).replace(/[-.,_']/g, "").toLowerCase();
 }
 
 const CountryTrivia = () => {
 	const [countries, setCountries] = useState<{ [key: string]: any }>({});
 	const [randomCountry, setRandomCountry] = useState<string>("");
+	const [previousCountry, setPreviousCountry] = useState<string>("");
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [guessTimes, setGuessTimes] = useState<number[]>([]);
 	const [startTime, setStartTime] = useState<number | null>(null);
 	const [averageTime, setAverageTime] = useState<number | null>(null);
 	const [roundsPlayed, setRoundsPlayed] = useState<number>(0);
+	const [showCountryToast, setShowCountryToast] = useState(false);
 
 	const [capInput, setCapInput] = useState<string>("");
 	const [currInput, setCurrInput] = useState<string>("");
@@ -64,14 +67,14 @@ const CountryTrivia = () => {
 	};
 
 	const getCapitalsFixed = (country: any) => {
-		return country.capital.map(fixDataString);
+		return country.capital.map(normalizeCountryString);
 	}
 
 	const getCurrenciesFixed = (country: any) => {
 		const abbr = Object.keys(country.currencies).map((a) => a.toLowerCase());
 
 		const currFullNames = Object.keys(country.currencies).reduce((prev, curr) => {
-			country.currencies[curr].name.split(' ').forEach((t: any) => prev.push(fixDataString(t as any)));
+			country.currencies[curr].name.split(' ').forEach((t: any) => prev.push(normalizeCountryString(t as any)));
 			return prev;
 		}, [] as string[]);
 
@@ -114,11 +117,11 @@ const CountryTrivia = () => {
 		}
 	}, [capInput, currInput]);
 
-	const getIncompleteInputID = ({capVal, currVal}: { capVal: string; currVal: string }) => {
+	const getIncompleteInputID = ({capitalVal, currencyVal}: { capitalVal: string; currencyVal: string }) => {
 		const country = countries[randomCountry];
 		const mapping: { [key: string]: any } = {
-			'cap-inp': capitalCorrect(country, capVal),
-			'curr-inp': currencyCorrect(country, currVal),
+			'cap-inp': capitalCorrect(country, capitalVal),
+			'curr-inp': currencyCorrect(country, currencyVal),
 		};
 
 		for (let id of Object.keys(mapping)) {
@@ -129,6 +132,7 @@ const CountryTrivia = () => {
 	}
 
 	const nextCountry = (failed = false) => {
+		setPreviousCountry(randomCountry);
 		setRandomCountry(
 			Object.keys(countries)[
 				Math.floor(Math.random() * Object.keys(countries).length)
@@ -148,11 +152,11 @@ const CountryTrivia = () => {
 
 	const handleCapChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
-		setCapInput(fixDataString(value));
+		setCapInput(normalizeCountryString(value));
 
 		const country = countries[randomCountry];
 		if (capitalCorrect(country, value)) {
-			const id = getIncompleteInputID({currVal: currInput, capVal: value});
+			const id = getIncompleteInputID({currencyVal: currInput, capitalVal: value});
 			if (id) {
 				document.getElementById(id)?.focus();
 			}
@@ -161,11 +165,11 @@ const CountryTrivia = () => {
 
 	const handleCurrChange = (e: ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value;
-		setCurrInput(fixDataString(value));
+		setCurrInput(normalizeCountryString(value));
 
 		const country = countries[randomCountry];
 		if (currencyCorrect(country, value)) {
-			const id = getIncompleteInputID({currVal: value, capVal: capInput});
+			const id = getIncompleteInputID({currencyVal: value, capitalVal: capInput});
 			if (id) {
 				document.getElementById(id)?.focus();
 			}
@@ -174,6 +178,19 @@ const CountryTrivia = () => {
 
 	const onSkip = () => {
 		nextCountry(true);
+
+		setTimeout(() => {
+			setShowCountryToast(false);
+		}, 3000);
+
+		setShowCountryToast(true);
+
+	}
+
+	const getCountryCheatString = (name: string) => {
+		const capital = countries[name]?.capital[0] ?? "None";
+		const currency = countries[name]?.currencies[0]?.name ?? "None";
+		return `Capital: ${capital} | Currency: ${currency}`
 	}
 
 	if (isLoading) {
@@ -198,6 +215,7 @@ const CountryTrivia = () => {
 
 	return (
 		<section className="container mx-auto grid max-w-2xl items-center justify-center gap-6 pb-8 pt-6 md:py-10">
+			<Toast title={"It was"} description={getCountryCheatString(previousCountry)}  open={showCountryToast} setOpen={setShowCountryToast}/>
 			<p className="mb-4 text-lg">
 				<span className="font-semibold">Land: </span>
 				<span className={'text-accent'}>{randomCountry}</span>
