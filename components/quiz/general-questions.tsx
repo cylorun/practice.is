@@ -19,7 +19,7 @@ type GameResult = {
 	skipped: boolean;
 };
 
-const GAME_LENGTH_SECONDS = 10;
+const GAME_LENGTH_SECONDS = 90;
 
 const GeneralQuestions = () => {
 	const [questions, setQuestions] = useState<Question[]>([]);
