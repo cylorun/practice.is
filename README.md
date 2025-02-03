@@ -1,2 +1,2 @@
 # practice.is
-A general knowledge practicing website written in NextJS
+An icelandic general knowledge practicing website written in NextJS
