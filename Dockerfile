@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:20
 LABEL authors="cylorun"
 
 WORKDIR /app
@@ -9,9 +9,8 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 5001
 
 RUN npm run build
 
-CMD ["npm", "start"]
-
+CMD ["npm", "start", "--", "-p", "5001"]
