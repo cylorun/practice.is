@@ -1,10 +1,9 @@
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import {capitalize, cn, normalizeString, stringPercentageMatch} from "@/lib/utils";
-import {Button, buttonVariants} from "@/components/ui/button";
-import {supabase, uploadScore} from "@/lib/supabase";
-import {Toast} from "@/components/ui/toast";
+import { capitalize, cn, normalizeString, stringPercentageMatch } from "@/lib/utils";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { supabase, uploadScore } from "@/lib/supabase";
+import { Toast } from "@/components/ui/toast";
 
 type Question = {
 	question: string;
@@ -34,6 +33,8 @@ const GeneralQuestions = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [openErrorToast, setOpenErrorToast] = useState(false);
 	const [error, setError] = useState<string>("");
+
+	const [hasStarted, setHasStarted] = useState<boolean>(false); // New state to track if game has started
 
 	const fetchQuestions = async () => {
 		setIsLoading(true);
@@ -68,11 +69,10 @@ const GeneralQuestions = () => {
 		if (!randQuestion) return;
 
 		if (!userAnswer || userAnswer === "") {
-			skipped = true; // if the useranswer is empty we count it as a skipped question
+			skipped = true;
 		}
 
 		const correct = isValidAnswer(userAnswer);
-		const timeTaken = (Date.now() - startTime) / 1000;
 
 		const score = correct ? 1 : 0;
 		setGameResults((prev) => [
@@ -90,7 +90,11 @@ const GeneralQuestions = () => {
 			setRoundsPlayed((prev) => prev + 1);
 		}
 
-		nextQuestion();
+		if (gameTime === 0) {
+			setGameOver(true);
+		} else {
+			nextQuestion();
+		}
 	};
 
 	const nextQuestion = (data = questions) => {
@@ -102,6 +106,9 @@ const GeneralQuestions = () => {
 	};
 
 	const onUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+		if (!hasStarted) {
+			setHasStarted(true);
+		}
 		setUserAnswer(e.currentTarget.value);
 	};
 
@@ -111,6 +118,7 @@ const GeneralQuestions = () => {
 
 	const restartGame = () => {
 		setGameOver(false);
+		setHasStarted(false);
 		setGameTime(GAME_LENGTH_SECONDS);
 		setGameResults([]);
 
@@ -131,18 +139,16 @@ const GeneralQuestions = () => {
 		return ["Rangt", "text-[#ff0000]"]
 	}
 
-
 	useEffect(() => {
 		fetchQuestions();
 	}, []);
 
 	useEffect(() => {
-		if (gameTime > 0 && !gameOver) {
+		if (gameTime > 0 && !gameOver && hasStarted) {
 			const timer = setInterval(() => {
 				setGameTime((prevTime) => {
 					if (prevTime <= 1) {
 						clearInterval(timer);
-						setGameOver(true);
 						return 0;
 					}
 					return prevTime - 1;
@@ -151,18 +157,18 @@ const GeneralQuestions = () => {
 
 			return () => clearInterval(timer);
 		}
-	}, [gameTime, gameOver]);
+	}, [gameTime, gameOver, hasStarted]);
 
 	useEffect(() => {
 		(async () => {
-			if (gameOver && gameResults.length > 0) { // if no gameresults the player hasnt done anything, so pointless to upload
-				const {data: userData, error: userError} = await supabase.auth.getUser();
+			if (gameOver && gameResults.length > 0) {
+				const { data: userData, error: userError } = await supabase.auth.getUser();
 				if (!userData || userError) {
 					return;
 				}
 
 				const user_id = userData.user.id;
-				const {data, error} = await uploadScore({
+				const { data, error } = await uploadScore({
 					user_id,
 					duration_s: GAME_LENGTH_SECONDS,
 					type: "speedquestions",
@@ -188,7 +194,7 @@ const GeneralQuestions = () => {
 
 	return (
 		<section className="mt-8 flex w-full flex-col items-center justify-center">
-			<Toast error title={"An error occured"} description={error ? error : "Unknown error"} open={openErrorToast} setOpen={setOpenErrorToast}/>
+			<Toast error title={"An error occurred"} description={error || "Unknown error"} open={openErrorToast} setOpen={setOpenErrorToast}/>
 
 			{!gameOver ? (
 				<>
@@ -196,8 +202,8 @@ const GeneralQuestions = () => {
 						<span className="font-semibold">Spurning: </span>
 						<br />
 						<span className={"text-accent"}>
-              {randQuestion?.question ? capitalize(randQuestion?.question) : ""}
-            </span>
+              				{randQuestion?.question ? capitalize(randQuestion?.question) : ""}
+            			</span>
 					</p>
 					<div className="container mx-auto grid max-w-2xl items-center justify-center gap-6 pb-8 pt-6 md:py-10">
 						<div className="flex flex-col rounded-md p-8 shadow-lg shadow-black">
@@ -210,7 +216,7 @@ const GeneralQuestions = () => {
 								value={userAnswer}
 								onChange={onUserInput}
 								className={"textinp"}
-								placeholder="Sláðu inn svar..."
+								placeholder="Byrjaðu að skrifa"
 								autoFocus={true}
 								onKeyUp={(e) => {
 									if (e.key === "Enter") {
