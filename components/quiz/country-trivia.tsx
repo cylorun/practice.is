@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useEffect, useState } from "react";
+import {ChangeEvent, useEffect, useRef, useState} from "react";
 import { Skeleton } from "@mui/material";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
@@ -44,6 +44,8 @@ const CountryTrivia = () => {
 
 	const [capInput, setCapInput] = useState<string>("");
 	const [currInput, setCurrInput] = useState<string>("");
+
+	const toastTimeoutRed = useRef<NodeJS.Timeout | null>(null);
 
 	const fetchCountries = async () => {
 		setIsLoading(true);
@@ -179,17 +181,25 @@ const CountryTrivia = () => {
 	const onSkip = () => {
 		nextCountry(true);
 
-		setTimeout(() => {
-			setShowCountryToast(false);
-		}, 3000);
+		if (toastTimeoutRed.current) {
+			clearTimeout(toastTimeoutRed.current);
+		}
 
 		setShowCountryToast(true);
 
-	}
+		toastTimeoutRed.current = setTimeout(() => {
+			setShowCountryToast(false);
+		}, 3000);
+	};
 
 	const getCountryCheatString = (name: string) => {
-		const capital = countries[name]?.capital[0] ?? "None";
-		const currency = countries[name]?.currencies[0]?.name ?? "None";
+		const country = countries[name];
+		if (!country) {
+			return "Undefined country"
+		}
+		const capital = country.capital[0] ?? "None";
+		const currencyKey = Object.keys(country.currencies)[0];
+		const currency = country.currencies[currencyKey]?.name ?? "None";
 		return `Capital: ${capital} | Currency: ${currency}`
 	}
 
