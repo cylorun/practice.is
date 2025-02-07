@@ -14,6 +14,9 @@ export function MainNav() {
 				<Icons.logo className="size-8"/>
 				<span className="inline-block text-xl font-bold">{siteConfig.name}</span>
 			</Link>
+			<div className={'flex items-center rounded bg-green-400 px-2 text-gray-900'}>
+				BETA
+			</div>
 			<nav className="flex gap-2 border-l-2 border-l-foreground">
 				{/*About button*/}
 				<Tooltip text="Info" direction="bottom">
