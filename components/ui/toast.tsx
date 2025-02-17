@@ -24,7 +24,7 @@ export function Toast({
 				open={open}
 				onOpenChange={setOpen}
 				className={cn(
-					`fixed xs:right-[5rem] xs:top-20 sm:right-5 sm:top-20 flex xs:w-32 sm:w-64 items-center justify-between rounded-lg ${error ? "bg-red-400" : "bg-green-400"} bg-opacity-80 border-2 ${error ? "border-red-700" : "border-green-700"} p-4 text-card`,
+					`fixed right-10 sm:right-5 top-20 flex w-64 items-center justify-between rounded-lg ${error ? "bg-red-400" : "bg-green-400"} bg-opacity-80 border-2 ${error ? "border-red-700" : "border-green-700"} p-4 text-card`,
 					"transition-all duration-300 ease-in-out"
 				)}
 			>
