@@ -12,7 +12,7 @@ export function MainNav() {
 		<div className="flex gap-6 md:gap-5">
 			<Link href="/" className="flex items-center space-x-2">
 				<Icons.logo className="size-8"/>
-				<span className="inline-block text-xl font-bold">{siteConfig.name}</span>
+				<span className="hidden xs:inline-block text-xl font-bold">{siteConfig.name}</span>
 			</Link>
 			<div className={'flex items-center rounded bg-green-400 px-2 text-gray-900'}>
 				BETA
