@@ -6,11 +6,15 @@ import {GameModeBar} from "@/components/gamemode-bar";
 import * as React from "react";
 
 
-export function SiteFooter() {
+interface SiteFooterProps {
+	className?: string
+}
+
+export function SiteFooter({className}: SiteFooterProps) {
 
 	return (
 
-		<footer className="flex justify-center border-t-2 border-muted p-4">
+		<footer className={`flex justify-center border-t-2 border-muted p-4 ${className ? className : ""}`}>
 			<ul className="flex items-center space-x-3 text-sm font-medium">
 				{/* about button */}
 				<Link href="/about" className="flex items-center">

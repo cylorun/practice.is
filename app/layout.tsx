@@ -1,17 +1,17 @@
 import "@/styles/globals.css"
 import React from "react"
-import { Metadata } from "next"
+import {Metadata} from "next"
 
-import { siteConfig } from "@/config/site"
-import { fontSans } from "@/lib/fonts"
-import { cn } from "@/lib/utils"
-import { GameModeProvider } from "@/components/game-mode-provider"
-import { SiteHeader } from "@/components/site-header"
-import { TailwindIndicator } from "@/components/tailwind-indicator"
-import { ThemeProvider } from "@/components/theme-provider"
+import {siteConfig} from "@/config/site"
+import {fontSans} from "@/lib/fonts"
+import {cn} from "@/lib/utils"
+import {GameModeProvider} from "@/components/game-mode-provider"
+import {SiteHeader} from "@/components/site-header"
+import {TailwindIndicator} from "@/components/tailwind-indicator"
+import {ThemeProvider} from "@/components/theme-provider"
 import {AuthProvider} from "@/components/auth-provider";
 import Script from "next/script"
-import { SiteFooter } from "@/components/site-footer"
+import {SiteFooter} from "@/components/site-footer"
 
 export const metadata: Metadata = {
 	title: {
@@ -33,7 +33,7 @@ interface RootLayoutProps {
 const GA_TRACKING_ID = "G-TL447XBT2L";
 
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default function RootLayout({children}: RootLayoutProps) {
 	return (
 		<>
 			<html lang="en" suppressHydrationWarning>
@@ -64,11 +64,14 @@ export default function RootLayout({ children }: RootLayoutProps) {
 			<ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
 				<AuthProvider>
 					<GameModeProvider>
-						<div className="relative flex min-h-screen flex-col">
+						<div className="relative flex h-screen flex-col">
 							<SiteHeader/>
+
 							<div className="flex-1">{children}</div>
+
+							<SiteFooter className="sticky bottom-0 w-full border-t-2 border-muted bg-background p-4"/>
 						</div>
-						<SiteFooter/>
+
 						<TailwindIndicator/>
 					</GameModeProvider>
 				</AuthProvider>
