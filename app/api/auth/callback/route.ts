@@ -3,8 +3,7 @@ import { NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
 export async function GET(request: Request) {
-	console.log(request.url)
-	const { searchParams, origin } = new URL(request.url)
+	const { searchParams, origin } = new URL("https://practice.is/api/auth/callback"); //im really sorry for doing this
 	const code = searchParams.get('code')
 
 	// if "next" is in param, use it as the redirect URL
