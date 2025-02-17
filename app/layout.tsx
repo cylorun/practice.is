@@ -11,6 +11,7 @@ import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
 import {AuthProvider} from "@/components/auth-provider";
 import Script from "next/script"
+import { SiteFooter } from "@/components/site-footer"
 
 export const metadata: Metadata = {
 	title: {
@@ -67,6 +68,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
 							<SiteHeader/>
 							<div className="flex-1">{children}</div>
 						</div>
+						<SiteFooter/>
 						<TailwindIndicator/>
 					</GameModeProvider>
 				</AuthProvider>
