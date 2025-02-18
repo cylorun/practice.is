@@ -32,16 +32,6 @@ const Page = () => {
 
 					<div className="space-y-4">
 						<div className="flex items-center justify-center space-x-2">
-							<Icons.twitter />
-							<a
-								href="https://x.com/cylorun"
-								className={cn(buttonVariants({ variant: "link" }))}
-							>
-								@cylorun
-							</a>
-						</div>
-
-						<div className="flex items-center justify-center space-x-2">
 							<Icons.mail />
 							<a
 								href="mailto:alfgrimurdavid@gmail.com"
